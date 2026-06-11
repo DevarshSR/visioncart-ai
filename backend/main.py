@@ -9,10 +9,24 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+
+BASE_DIR = os.path.dirname(
+    os.path.abspath(__file__)
+)
+
+UPLOAD_DIR = os.path.join(
+    BASE_DIR,
+    "uploads"
+)
+
+os.makedirs(
+    UPLOAD_DIR,
+    exist_ok=True
 )
 
 
@@ -27,7 +41,7 @@ def home():
 def status():
     return {
         "status": "running",
-        "project": "AI Retail Platform"
+        "project": "VisionCart"
     }
 
 
@@ -36,47 +50,30 @@ def get_products():
     return [
         {
             "id": 1,
-            "name": "Coca Cola",
+            "name": "Coca-Cola",
             "price": 40
         },
         {
             "id": 2,
-            "name": "Lays Chips",
-            "price": 20
-        },
-        {
-            "id": 3,
-            "name": "KitKat",
-            "price": 30
+            "name": "Colgate",
+            "price": 65
         }
     ]
-
-
-@app.get("/scan-product")
-def scan_product():
-    return {
-        "id": 1,
-        "name": "Coca Cola",
-        "price": 40
-    }
 
 
 @app.post("/upload-image")
 async def upload_image(
     file: UploadFile = File(...)
 ):
-
-    os.makedirs(
-        "uploads",
-        exist_ok=True
-    )
-
     file_path = os.path.join(
-        "uploads",
+        UPLOAD_DIR,
         file.filename
     )
 
-    with open(file_path, "wb") as buffer:
+    with open(
+        file_path,
+        "wb"
+    ) as buffer:
         buffer.write(
             await file.read()
         )

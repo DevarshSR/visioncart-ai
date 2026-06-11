@@ -1,9 +1,20 @@
 from ultralytics import YOLO
 import time
+import os
 
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    )
+)
 
-model = YOLO("models/best.pt")
+MODEL_PATH = os.path.join(
+    BASE_DIR,
+    "models",
+    "best.pt"
+)
 
+model = YOLO(MODEL_PATH)
 
 PRODUCT_DATABASE = {
     "Coca-Cola": {
