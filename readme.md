@@ -8,6 +8,28 @@ The platform combines a custom-trained YOLOv8 object detection model with a Fast
 
 ---
 
+## 📸 Application Screenshots
+
+### Home Page
+
+![Home Page](screenshots/homepage1.png)
+![Home Page](screenshots/homepage2.png)
+![Home Page](screenshots/homepage3.png)
+
+---
+
+### Live Product Scanner
+
+![Scanner Page](screenshots/scanpage.png)
+
+---
+
+### Receipt Generation
+
+![Receipt](screenshots/checkout.png)
+
+
+
 ## 🚀 Features
 
 ### Computer Vision
