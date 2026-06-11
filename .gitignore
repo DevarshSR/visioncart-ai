@@ -1,19 +1,45 @@
-
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments
 venv/
+.venv/
+env/
 
+# FastAPI Uploads
+backend/uploads/
 
+# YOLO Training Outputs
+runs/
+training/runs/
+
+# Dataset Files
+retail_datasets/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment Variables
 .env
 
-
-node_modules/
-
-
-.next/
-
-
-.vscode/
-
+# OS Files
 .DS_Store
 Thumbs.db
+
+# VS Code
+.vscode/
+
+# Node
+frontend/node_modules/
+
+# Next.js
+frontend/.next/
+
+# Logs
+*.log
+
+yolov8n.pt
+yolo26n.pt

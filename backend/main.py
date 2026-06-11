@@ -1,6 +1,9 @@
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
-from fastapi import UploadFile, File
+
+from ai_services.detector import detect_product
+
+import os
 
 app = FastAPI()
 
@@ -11,6 +14,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/")
 def home():
@@ -25,6 +29,7 @@ def status():
         "status": "running",
         "project": "AI Retail Platform"
     }
+
 
 @app.get("/products")
 def get_products():
@@ -46,6 +51,7 @@ def get_products():
         }
     ]
 
+
 @app.get("/scan-product")
 def scan_product():
     return {
@@ -54,9 +60,29 @@ def scan_product():
         "price": 40
     }
 
+
 @app.post("/upload-image")
-async def upload_image(file: UploadFile = File(...)):
-    return {
-        "filename": file.filename,
-        "message": "Image received successfully"
-    }
+async def upload_image(
+    file: UploadFile = File(...)
+):
+
+    os.makedirs(
+        "uploads",
+        exist_ok=True
+    )
+
+    file_path = os.path.join(
+        "uploads",
+        file.filename
+    )
+
+    with open(file_path, "wb") as buffer:
+        buffer.write(
+            await file.read()
+        )
+
+    result = detect_product(
+        file_path
+    )
+
+    return result
